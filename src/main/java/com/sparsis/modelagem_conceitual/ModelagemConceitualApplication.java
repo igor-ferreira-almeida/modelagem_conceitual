@@ -10,10 +10,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.sparsis.modelagem_conceitual.domain.Categoria;
 import com.sparsis.modelagem_conceitual.domain.Cidade;
+import com.sparsis.modelagem_conceitual.domain.Cliente;
+import com.sparsis.modelagem_conceitual.domain.Endereco;
 import com.sparsis.modelagem_conceitual.domain.Estado;
 import com.sparsis.modelagem_conceitual.domain.Produto;
+import com.sparsis.modelagem_conceitual.domain.Telefone;
+import com.sparsis.modelagem_conceitual.domain.type.ClienteType;
 import com.sparsis.modelagem_conceitual.repository.CategoriaRepository;
 import com.sparsis.modelagem_conceitual.repository.CidadeRepository;
+import com.sparsis.modelagem_conceitual.repository.ClienteRepository;
+import com.sparsis.modelagem_conceitual.repository.EnderecoRepository;
 import com.sparsis.modelagem_conceitual.repository.EstadoRepository;
 import com.sparsis.modelagem_conceitual.repository.ProdutoRepository;
 
@@ -30,6 +36,12 @@ public class ModelagemConceitualApplication implements CommandLineRunner {
 	
 	@Autowired
 	private CidadeRepository cidadeRepository;
+
+	@Autowired
+	private ClienteRepository clienteReposity;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ModelagemConceitualApplication.class, args);
@@ -64,11 +76,26 @@ public class ModelagemConceitualApplication implements CommandLineRunner {
 		estado1.setCidades(Arrays.asList(cidade1, cidade2));
 		estado2.setCidades(Arrays.asList(cidade3));
 		
+		Cliente cliente1 = new Cliente(null, "Maria Silva", "maria.silva@sparsis.com", "99999999999", ClienteType.PESSOA_FISICA);
+		Telefone telefone1 = new Telefone("+55", "11", "99999999");
+		Telefone telefone2 = new Telefone("+55", "11", "77777777");
+		
+		cliente1.addAllTelefone(telefone1, telefone2);
+		
+		Endereco endereco1 = new Endereco(null, "Rua das Flores", 300, "Apartamento 303", "Jardim", "38220834", cliente1, cidade3);
+		Endereco endereco2 = new Endereco(null, "Avenida Matos", 105, "Sala 800", "Centro", "38777012", cliente1, cidade1);
+		
+		cliente1.addAllEnderecos(endereco1, endereco2);
+		
+		
 		categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2));
 		produtoRepository.saveAll(Arrays.asList(produto1, produto2, produto3));
 		
 		estadoRepository.saveAll(Arrays.asList(estado1, estado2));
 		cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
+		
+		clienteReposity.save(cliente1);
+		enderecoRepository.saveAll(Arrays.asList(endereco1, endereco2));
 	}
 
 }
