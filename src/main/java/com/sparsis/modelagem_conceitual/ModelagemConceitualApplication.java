@@ -1,6 +1,7 @@
 package com.sparsis.modelagem_conceitual;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +14,21 @@ import com.sparsis.modelagem_conceitual.domain.Cidade;
 import com.sparsis.modelagem_conceitual.domain.Cliente;
 import com.sparsis.modelagem_conceitual.domain.Endereco;
 import com.sparsis.modelagem_conceitual.domain.Estado;
+import com.sparsis.modelagem_conceitual.domain.Pagamento;
+import com.sparsis.modelagem_conceitual.domain.PagamentoBoleto;
+import com.sparsis.modelagem_conceitual.domain.PagamentoCartao;
+import com.sparsis.modelagem_conceitual.domain.Pedido;
 import com.sparsis.modelagem_conceitual.domain.Produto;
 import com.sparsis.modelagem_conceitual.domain.Telefone;
+import com.sparsis.modelagem_conceitual.domain.status.PagamentoStatus;
 import com.sparsis.modelagem_conceitual.domain.type.ClienteType;
 import com.sparsis.modelagem_conceitual.repository.CategoriaRepository;
 import com.sparsis.modelagem_conceitual.repository.CidadeRepository;
 import com.sparsis.modelagem_conceitual.repository.ClienteRepository;
 import com.sparsis.modelagem_conceitual.repository.EnderecoRepository;
 import com.sparsis.modelagem_conceitual.repository.EstadoRepository;
+import com.sparsis.modelagem_conceitual.repository.PagamentoRepository;
+import com.sparsis.modelagem_conceitual.repository.PedidoRepository;
 import com.sparsis.modelagem_conceitual.repository.ProdutoRepository;
 
 @SpringBootApplication
@@ -42,6 +50,12 @@ public class ModelagemConceitualApplication implements CommandLineRunner {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private PedidoRepository pedidoReposity;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ModelagemConceitualApplication.class, args);
@@ -87,6 +101,18 @@ public class ModelagemConceitualApplication implements CommandLineRunner {
 		
 		cliente1.addAllEnderecos(endereco1, endereco2);
 		
+		Pedido pedido1 = new Pedido(null, LocalDateTime.of(2017, 9, 30, 10, 32), cliente1, endereco1);
+		Pedido pedido2 = new Pedido(null, LocalDateTime.of(2017, 10, 10, 19, 35), cliente1, endereco2);
+		
+		
+		Pagamento pagamento1 = new PagamentoCartao(null, PagamentoStatus.QUITADO, pedido1, 6);
+		pedido1.setPagamento(pagamento1);
+		
+		Pagamento pagamento2 = new PagamentoBoleto(null, PagamentoStatus.PENDENTE, pedido2, LocalDateTime.of(2017, 10, 20, 0, 0), null);
+		pedido2.setPagamento(pagamento2);
+		
+		
+		cliente1.addAllPedidos(pedido1, pedido2);
 		
 		categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2));
 		produtoRepository.saveAll(Arrays.asList(produto1, produto2, produto3));
@@ -96,6 +122,10 @@ public class ModelagemConceitualApplication implements CommandLineRunner {
 		
 		clienteReposity.save(cliente1);
 		enderecoRepository.saveAll(Arrays.asList(endereco1, endereco2));
+		
+		pedidoReposity.saveAll(Arrays.asList(pedido1, pedido2));
+		
+		pagamentoRepository.saveAll(Arrays.asList(pagamento1, pagamento2));
 	}
 
 }

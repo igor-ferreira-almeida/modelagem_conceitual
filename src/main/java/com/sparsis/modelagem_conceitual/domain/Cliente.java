@@ -42,7 +42,7 @@ public class Cliente implements Serializable {
 	private String documento;
 	
 	@Column(name = "tipo")
-	private Integer tipo;
+	private String tipo;
 	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente")
@@ -52,6 +52,9 @@ public class Cliente implements Serializable {
 	@ElementCollection
 	private Set<Telefone> telefones = new HashSet<>();
 	
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
+	
 	public Cliente() {}
 	
 	public Cliente(Long id, String nome, String email, String documento, ClienteType tipo) {
@@ -59,7 +62,7 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 		this.email = email;
 		this.documento = tipo.formata(documento);
-		this.tipo = tipo.getCodigo();
+		this.tipo = tipo.getDescricao();
 	}
 
 	public Long getId() {
@@ -99,7 +102,7 @@ public class Cliente implements Serializable {
 	}
 
 	public void setTipo(ClienteType tipo) {
-		this.tipo = tipo.getCodigo();
+		this.tipo = tipo.getDescricao();
 	}
 
 	public Set<Telefone> getTelefones() {
@@ -108,6 +111,11 @@ public class Cliente implements Serializable {
 	
 	public List<Endereco> getEnderecos() {
 		return Collections.unmodifiableList(enderecos);
+	}
+	
+	
+	public List<Pedido> getPedidos() {
+		return Collections.unmodifiableList(pedidos);
 	}
 
 	@Override
@@ -154,5 +162,12 @@ public class Cliente implements Serializable {
 	public void addAllEnderecos(Endereco... enderecos) {
 		this.enderecos.addAll(Arrays.asList(enderecos));
 	}
+
+	public void addPedidos(Pedido pedido) {
+		this.pedidos.add(pedido);
+	}
 	
+	public void addAllPedidos(Pedido...pedidos) {
+		this.pedidos.addAll(Arrays.asList(pedidos));
+	}
 }

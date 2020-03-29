@@ -13,12 +13,12 @@ public enum ClienteType {
 	PESSOA_JURIDICA(2, "Pessoa Jurídica", new FormatadorCNPJ());
 
 	private Integer codigo;
-	private String nome;
+	private String descricao;
 	private Formatador formatador;
 	
-	private ClienteType(Integer codigo, String nome, Formatador formatador) {
+	private ClienteType(Integer codigo, String descricao, Formatador formatador) {
 		this.codigo = codigo;
-		this.nome = nome;
+		this.descricao = descricao;
 		this.formatador = formatador;
 	}
 
@@ -26,18 +26,18 @@ public enum ClienteType {
 		return codigo;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
 	
-	public static ClienteType toEnum(Integer codigo) {
+	public static ClienteType toEnum(String descricao) {
 		List<ClienteType> values = Arrays.asList(ClienteType.values());
-		Optional<ClienteType> optionalValue = values.stream().filter(value -> value.codigo.equals(codigo)).findFirst();
+		Optional<ClienteType> optionalValue = values.stream().filter(value -> value.codigo.equals(descricao)).findFirst();
 		
 		if(optionalValue.isPresent()) {
 			optionalValue.get();
 		} else {
-			throw new IllegalArgumentException("Código de cliente inválido: " + codigo);
+			throw new IllegalArgumentException("Código de cliente inválido: " + descricao);
 		}
 		
 		return null;
