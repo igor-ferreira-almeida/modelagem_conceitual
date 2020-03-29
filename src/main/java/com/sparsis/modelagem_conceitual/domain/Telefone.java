@@ -3,10 +3,13 @@ package com.sparsis.modelagem_conceitual.domain;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Embeddable
 public class Telefone {
 	
 	@Column(name = "codigo_pais")
+	@JsonProperty("codigo_pais")
 	private String codigoPais;
 	
 	@Column(name = "ddd")

@@ -19,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sparsis.modelagem_conceitual.domain.type.ClienteType;
 
 @Entity
@@ -43,12 +44,15 @@ public class Cliente implements Serializable {
 	@Column(name = "tipo")
 	private Integer tipo;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
 	@CollectionTable(name = "telefone", joinColumns = @JoinColumn(name = "cliente_id"))
 	@ElementCollection
 	private Set<Telefone> telefones = new HashSet<>();
+	
+	public Cliente() {}
 	
 	public Cliente(Long id, String nome, String email, String documento, ClienteType tipo) {
 		this.id = id;

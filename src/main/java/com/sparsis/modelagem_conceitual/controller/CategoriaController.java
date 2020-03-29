@@ -20,7 +20,7 @@ import javassist.tools.rmi.ObjectNotFoundException;
 public class CategoriaController {
 
 	@Autowired
-	private CategoriaService service;
+	private CategoriaService categoriaService;
 
 	@GetMapping
 	public List<Categoria> listar() {
@@ -34,7 +34,7 @@ public class CategoriaController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Categoria> findById(@PathVariable Integer id) {
-		Categoria categoria = service.findById(id);
+		Categoria categoria = categoriaService.findById(id);
 		return ResponseEntity.ok().body(categoria);
 	}
 
