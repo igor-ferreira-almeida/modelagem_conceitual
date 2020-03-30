@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sparsis.modelagem_conceitual.domain.status.PagamentoStatus;
 
 @Entity
@@ -12,7 +14,12 @@ import com.sparsis.modelagem_conceitual.domain.status.PagamentoStatus;
 public class PagamentoBoleto extends Pagamento {
 	private static final long serialVersionUID = 1L;
 	
+	@JsonProperty(value = "data_vencimento")
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDateTime dataVencimento;
+	
+	@JsonProperty(value = "data_pagamento")
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDateTime dataPagamento;
 	
 	public PagamentoBoleto() {}

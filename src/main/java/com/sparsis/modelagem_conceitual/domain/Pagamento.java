@@ -12,6 +12,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sparsis.modelagem_conceitual.domain.status.PagamentoStatus;
 
 @Entity
@@ -27,6 +28,7 @@ public abstract class Pagamento implements Serializable {
 	@Column(name = "status")
 	private String status;
 	
+	@JsonBackReference
 	@JoinColumn(name = "pedido_id")
 	@MapsId
 	@OneToOne

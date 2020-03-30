@@ -32,12 +32,12 @@ public enum ClienteType {
 	
 	public static ClienteType toEnum(String descricao) {
 		List<ClienteType> values = Arrays.asList(ClienteType.values());
-		Optional<ClienteType> optionalValue = values.stream().filter(value -> value.codigo.equals(descricao)).findFirst();
+		Optional<ClienteType> optionalValue = values.stream().filter(value -> value.descricao.equals(descricao)).findFirst();
 		
 		if(optionalValue.isPresent()) {
 			optionalValue.get();
 		} else {
-			throw new IllegalArgumentException("Código de cliente inválido: " + descricao);
+			throw new IllegalArgumentException("Descrição de cliente inválido: " + descricao);
 		}
 		
 		return null;

@@ -40,7 +40,7 @@ public enum PagamentoStatus {
 		if(optionalValue.isPresent()) {
 			optionalValue.get();
 		} else {
-			throw new IllegalArgumentException("Código de cliente inválido: " + codigo);
+			throw new IllegalArgumentException("Código de pagamento inválido: " + codigo);
 		}
 		
 		return null;
@@ -48,12 +48,12 @@ public enum PagamentoStatus {
 	
 	public static PagamentoStatus toEnum(String descricao) {
 		List<PagamentoStatus> values = Arrays.asList(PagamentoStatus.values());
-		Optional<PagamentoStatus> optionalValue = values.stream().filter(value -> value.codigo.equals(descricao)).findFirst();
+		Optional<PagamentoStatus> optionalValue = values.stream().filter(value -> value.descricao.equals(descricao)).findFirst();
 		
 		if(optionalValue.isPresent()) {
 			optionalValue.get();
 		} else {
-			throw new IllegalArgumentException("Código de cliente inválido: " + descricao);
+			throw new IllegalArgumentException("Descrição de pagamento inválido: " + descricao);
 		}
 		
 		return null;
