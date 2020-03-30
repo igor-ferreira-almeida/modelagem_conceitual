@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sparsis.modelagem_conceitual.domain.Categoria;
 import com.sparsis.modelagem_conceitual.service.CategoriaService;
 
-import javassist.tools.rmi.ObjectNotFoundException;
-
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaController {

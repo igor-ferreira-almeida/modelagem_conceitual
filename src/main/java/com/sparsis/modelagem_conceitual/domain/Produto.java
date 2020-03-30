@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,62 +20,62 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "produto")
 public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private Long id;
-	
+
 	@Column(name = "nome")
 	private String nome;
-	
+
 	@Column(name = "preco")
 	private BigDecimal preco;
-	
-	
-	@JsonBackReference
-	@JoinTable(
-		name = "produto_categoria",
-		joinColumns = @JoinColumn(name = "produto_id"),
-		inverseJoinColumns = @JoinColumn(name = "categoria_id")
-	)
+
+	@JsonIgnore
+	@JoinTable(name = "produto_categoria", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	@ManyToMany
 	private List<Categoria> categorias = new ArrayList<>();
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "id.produto")
 	private Set<Item> itens = new HashSet<>();
-	
-	public Produto() {}
-	
+
+	public Produto() {
+	}
+
 	public Produto(Long id, String nome, BigDecimal preco) {
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 	public BigDecimal getPreco() {
 		return preco;
 	}
+
 	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
 	}
@@ -88,15 +87,15 @@ public class Produto implements Serializable {
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
-	
+
 	public void addItem(Item item) {
 		this.itens.add(item);
 	}
-	
-	public void addItens(Item...itens) {
+
+	public void addItens(Item... itens) {
 		this.itens.addAll(Arrays.asList(itens));
 	}
-	
+
 	@JsonIgnore
 	public List<Pedido> getPedidos() {
 		return itens.stream().map(item -> item.getPedido()).collect(Collectors.toList());

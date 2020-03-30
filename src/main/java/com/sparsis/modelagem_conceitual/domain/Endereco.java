@@ -1,7 +1,6 @@
 package com.sparsis.modelagem_conceitual.domain;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "endereco")
@@ -39,7 +38,7 @@ public class Endereco implements Serializable {
 	@Column(name = "cep")
 	private String cep;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@JoinColumn(name = "cliente_id")
 	@ManyToOne
 	private Cliente cliente;

@@ -19,8 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sparsis.modelagem_conceitual.domain.type.ClienteType;
 
 @Entity
@@ -45,7 +44,6 @@ public class Cliente implements Serializable {
 	@Column(name = "tipo")
 	private String tipo;
 	
-	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
@@ -53,7 +51,7 @@ public class Cliente implements Serializable {
 	@ElementCollection
 	private Set<Telefone> telefones = new HashSet<>();
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
