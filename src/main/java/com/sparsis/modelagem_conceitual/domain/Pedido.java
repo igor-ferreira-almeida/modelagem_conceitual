@@ -2,6 +2,10 @@ package com.sparsis.modelagem_conceitual.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -36,6 +41,9 @@ public class Pedido implements Serializable {
 	
 	@ManyToOne
 	private Endereco enderecoEntrega;
+	
+	@OneToMany(mappedBy = "id.pedido")
+	private Set<Item> itens = new HashSet<>();
 
 	public Pedido() {}
 	
@@ -84,6 +92,20 @@ public class Pedido implements Serializable {
 
 	public void setEnderecoEntrega(Endereco enderecoEntrega) {
 		this.enderecoEntrega = enderecoEntrega;
+	}
+	
+	
+
+	public Set<Item> getItens() {
+		return Collections.unmodifiableSet(itens);
+	}
+
+	public void addItem(Item item) {
+		this.itens.add(item);
+	}
+	
+	public void addItens(Item...itens) {
+		this.itens.addAll(Arrays.asList(itens));
 	}
 
 	@Override

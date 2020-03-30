@@ -3,7 +3,12 @@ package com.sparsis.modelagem_conceitual.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -42,6 +48,9 @@ public class Produto implements Serializable {
 	)
 	@ManyToMany
 	private List<Categoria> categorias = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "id.produto")
+	private Set<Item> itens = new HashSet<>();
 	
 	public Produto() {}
 	
@@ -76,6 +85,18 @@ public class Produto implements Serializable {
 
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
+	}
+	
+	public void addItem(Item item) {
+		this.itens.add(item);
+	}
+	
+	public void addItens(Item...itens) {
+		this.itens.addAll(Arrays.asList(itens));
+	}
+	
+	public List<Pedido> getPedidos() {
+		return itens.stream().map(item -> item.getPedido()).collect(Collectors.toList());
 	}
 
 	@Override
