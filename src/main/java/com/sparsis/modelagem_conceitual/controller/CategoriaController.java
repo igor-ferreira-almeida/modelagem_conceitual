@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +26,7 @@ public class CategoriaController {
 	private CategoriaService categoriaService;
 
 	@GetMapping
-	public List<Categoria> listar() {
+	public List<Categoria> list() {
 		Categoria categoria1 = new Categoria(1, "Informática");
 		Categoria categoria2 = new Categoria(2, "Escritório");
 
@@ -43,6 +44,14 @@ public class CategoriaController {
 	@PostMapping
 	public ResponseEntity<Void> save(@RequestBody Categoria categoria) {
 		Categoria categoriaCriada = categoriaService.create(categoria);
+		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/{id}").buildAndExpand(categoriaCriada.getId()).toUri();
+		
+		return ResponseEntity.created(uri).build();
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Void> update(@PathVariable Integer id, @RequestBody Categoria categoria) {
+		Categoria categoriaCriada = categoriaService.update(categoria);
 		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/{id}").buildAndExpand(categoriaCriada.getId()).toUri();
 		
 		return ResponseEntity.created(uri).build();
