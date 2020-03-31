@@ -13,14 +13,20 @@ import com.sparsis.modelagem_conceitual.service.exception.ObjectNotFoundExceptio
 public class CategoriaService {
 
 	@Autowired
-	private CategoriaRepository repository;
+	private CategoriaRepository categoriaRepository;
 	
 	public Categoria findById(Integer id) throws ObjectNotFoundException {
+
 		Supplier<? extends ObjectNotFoundException> exceptionNotFound = () -> {
 			String mensagem = "Objeto não encontrado, id: " + id + ", Tipo: " + Categoria.class.getName();
 			return new ObjectNotFoundException(mensagem);
 		};
 		
-		return repository.findById(id).orElseThrow(exceptionNotFound);
+		return categoriaRepository.findById(id).orElseThrow(exceptionNotFound);
+	}
+
+	public Categoria create(Categoria categoria) {
+		categoria.setId(null);
+		return categoriaRepository.save(categoria);
 	}
 }
