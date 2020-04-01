@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.sparsis.modelagem_conceitual.dto.CategoriaDTO;
+
 @Entity
 @Table(name = "categoria")
 public class Categoria implements Serializable {
@@ -33,6 +35,11 @@ public class Categoria implements Serializable {
 	public Categoria(Integer id, String nome) {
 		this.id = id;
 		this.nome = nome;
+	}
+	
+	public Categoria(CategoriaDTO categoriaDTO) {
+		this.id = categoriaDTO.getId();
+		this.nome = categoriaDTO.getNome();
 	}
 
 	public Integer getId() {
