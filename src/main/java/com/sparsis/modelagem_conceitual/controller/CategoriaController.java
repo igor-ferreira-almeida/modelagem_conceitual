@@ -1,7 +1,6 @@
 package com.sparsis.modelagem_conceitual.controller;
 
 import java.net.URI;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.sparsis.modelagem_conceitual.domain.Categoria;
+import com.sparsis.modelagem_conceitual.dto.CategoriaDTO;
 import com.sparsis.modelagem_conceitual.service.CategoriaService;
 
 @RestController
@@ -27,13 +27,9 @@ public class CategoriaController {
 	private CategoriaService categoriaService;
 
 	@GetMapping
-	public List<Categoria> list() {
-		Categoria categoria1 = new Categoria(1, "Informática");
-		Categoria categoria2 = new Categoria(2, "Escritório");
-
-		List<Categoria> categorias = Arrays.asList(categoria1, categoria2);
-
-		return categorias;
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
+		List<Categoria> categorias = categoriaService.findAll();
+		return ResponseEntity.ok().body(CategoriaDTO.toList(categorias));
 	}
 
 	@GetMapping("/{id}")

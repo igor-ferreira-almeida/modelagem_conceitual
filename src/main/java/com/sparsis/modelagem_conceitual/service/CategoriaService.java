@@ -1,5 +1,6 @@
 package com.sparsis.modelagem_conceitual.service;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,10 @@ public class CategoriaService {
 		};
 		
 		return categoriaRepository.findById(id).orElseThrow(exceptionNotFound);
+	}
+	
+	public List<Categoria> findAll() throws ObjectNotFoundException {
+		return categoriaRepository.findAll();
 	}
 
 	public Categoria create(Categoria categoria) {
