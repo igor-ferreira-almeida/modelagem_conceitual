@@ -1,4 +1,4 @@
-package com.sparsis.modelagem_conceitual.controller;
+package com.sparsis.modelagem_conceitual.controller.handler;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -9,6 +9,8 @@ public class StandardError implements Serializable {
 	private Integer status;
 	private String message;
 	private LocalDateTime date;
+	
+	public StandardError() {}
 	
 	public StandardError(Integer status, String message, LocalDateTime date) {
 		this.status = status;
