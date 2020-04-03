@@ -12,25 +12,18 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sparsis.modelagem_conceitual.domain.type.ClienteType;
+import com.sparsis.modelagem_conceitual.dto.ClienteDTO;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente implements Serializable {
+public class Cliente extends ORM<Long> implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id
-	private Long id;
 	
 	@Column(name = "nome")
 	private String nome;
@@ -58,19 +51,16 @@ public class Cliente implements Serializable {
 	public Cliente() {}
 	
 	public Cliente(Long id, String nome, String email, String documento, ClienteType tipo) {
-		this.id = id;
+		super.setId(id);
 		this.nome = nome;
 		this.email = email;
 		this.documento = tipo.formata(documento);
 		this.tipo = tipo.getDescricao();
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	
+	public Cliente(ClienteDTO clienteDTO) {
+		this.nome = clienteDTO.getNome();
+		this.email = clienteDTO.getEmail();
 	}
 
 	public String getNome() {
@@ -122,7 +112,7 @@ public class Cliente implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((super.getId() == null) ? 0 : super.getId().hashCode());
 		return result;
 	}
 
@@ -135,10 +125,10 @@ public class Cliente implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Cliente other = (Cliente) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (super.getId() == null) {
+			if (other.getId() != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!super.getId().equals(other.getId()))
 			return false;
 		return true;
 	}

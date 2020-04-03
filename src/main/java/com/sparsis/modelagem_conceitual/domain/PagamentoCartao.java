@@ -20,7 +20,7 @@ public class PagamentoCartao extends Pagamento {
 
 	public PagamentoCartao() {}
 	
-	public PagamentoCartao(Integer id, PagamentoStatus status, Pedido pedido, Integer numeroParcelas) {
+	public PagamentoCartao(Long id, PagamentoStatus status, Pedido pedido, Integer numeroParcelas) {
 		this.setId(id);
 		this.setStatus(status);
 		this.setPedido(pedido);

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.sparsis.modelagem_conceitual.domain.Estado;
 
 @Repository
-public interface EstadoRepository extends JpaRepository<Estado, Integer> {
+public interface EstadoRepository extends JpaRepository<Estado, Long> {
 
 }

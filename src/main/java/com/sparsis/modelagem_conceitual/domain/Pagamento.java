@@ -23,7 +23,7 @@ public abstract class Pagamento implements Serializable {
 	
 	@Column(name = "id")
 	@Id
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "status")
 	private String status;
@@ -36,17 +36,17 @@ public abstract class Pagamento implements Serializable {
 
 	public Pagamento() {}
 
-	public Pagamento(Integer id, PagamentoStatus status, Pedido pedido) {
+	public Pagamento(Long id, PagamentoStatus status, Pedido pedido) {
 		this.id = id;
 		this.status = status.getDescricao();
 		this.pedido = pedido;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

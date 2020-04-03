@@ -18,9 +18,8 @@ public class PedidoController {
 	private PedidoService clienteService;
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Pedido> findById(@PathVariable Integer id) {
+	public ResponseEntity<Pedido> findById(@PathVariable Long id) {
 		Pedido categoria = clienteService.findById(id);
 		return ResponseEntity.ok().body(categoria);
 	}
-
 }

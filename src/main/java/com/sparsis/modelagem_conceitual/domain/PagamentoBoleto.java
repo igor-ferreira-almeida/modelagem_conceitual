@@ -25,7 +25,7 @@ public class PagamentoBoleto extends Pagamento {
 	public PagamentoBoleto() {
 	}
 
-	public PagamentoBoleto(Integer id, PagamentoStatus status, Pedido pedido, LocalDateTime dataVencimento,
+	public PagamentoBoleto(Long id, PagamentoStatus status, Pedido pedido, LocalDateTime dataVencimento,
 			LocalDateTime dataPagamento) {
 		this.setId(id);
 		this.setStatus(status);

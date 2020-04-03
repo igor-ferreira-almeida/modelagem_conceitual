@@ -10,9 +10,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -24,48 +21,36 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "pedido")
-public class Pedido implements Serializable {
+public class Pedido extends ORM<Long> implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id
-	private Integer id;
-	
+
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Column(name = "data")
 	private LocalDateTime data;
-	
+
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private Pagamento pagamento;
-	
+
 	@JoinColumn(name = "cliente_id")
 	@ManyToOne
 	private Cliente cliente;
-	
+
 	@JsonProperty(value = "endereco_entrega")
 	@JoinColumn(name = "endereco_entrega_id")
 	@ManyToOne
 	private Endereco enderecoEntrega;
-	
+
 	@OneToMany(mappedBy = "id.pedido")
 	private Set<Item> itens = new HashSet<>();
 
-	public Pedido() {}
-	
-	public Pedido(Integer id, LocalDateTime data, Cliente cliente, Endereco enderecoEntrega) {
-		this.id = id;
+	public Pedido() {
+	}
+
+	public Pedido(Long id, LocalDateTime data, Cliente cliente, Endereco enderecoEntrega) {
+		this.setId(id);
 		this.data = data;
 		this.cliente = cliente;
 		this.enderecoEntrega = enderecoEntrega;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public LocalDateTime getData() {
@@ -99,8 +84,6 @@ public class Pedido implements Serializable {
 	public void setEnderecoEntrega(Endereco enderecoEntrega) {
 		this.enderecoEntrega = enderecoEntrega;
 	}
-	
-	
 
 	public Set<Item> getItens() {
 		return Collections.unmodifiableSet(itens);
@@ -109,8 +92,8 @@ public class Pedido implements Serializable {
 	public void addItem(Item item) {
 		this.itens.add(item);
 	}
-	
-	public void addItens(Item...itens) {
+
+	public void addItens(Item... itens) {
 		this.itens.addAll(Arrays.asList(itens));
 	}
 
@@ -118,7 +101,7 @@ public class Pedido implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((super.getId() == null) ? 0 : super.getId().hashCode());
 		return result;
 	}
 
@@ -131,10 +114,10 @@ public class Pedido implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Pedido other = (Pedido) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (super.getId() == null) {
+			if (other.getId() != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!super.getId().equals(other.getId()))
 			return false;
 		return true;
 	}
