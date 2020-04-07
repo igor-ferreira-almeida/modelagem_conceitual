@@ -83,4 +83,10 @@ public class Estado extends ORM<Long> implements Serializable {
 		
 		return sb.toString();
 	}
+
+	@Override
+	public ORM<Long> prepareUpdate(ORM<Long> orm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

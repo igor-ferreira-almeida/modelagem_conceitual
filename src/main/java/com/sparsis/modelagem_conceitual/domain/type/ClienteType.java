@@ -35,12 +35,10 @@ public enum ClienteType {
 		Optional<ClienteType> optionalValue = values.stream().filter(value -> value.descricao.equals(descricao)).findFirst();
 		
 		if(optionalValue.isPresent()) {
-			optionalValue.get();
+			return optionalValue.get();
 		} else {
 			throw new IllegalArgumentException("Descrição de cliente inválido: " + descricao);
 		}
-		
-		return null;
 	}
 
 	public String formata(String numero) {

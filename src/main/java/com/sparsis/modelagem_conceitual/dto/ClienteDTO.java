@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 
 import com.sparsis.modelagem_conceitual.domain.Cliente;
 
-public class ClienteDTO {
+public class ClienteDTO implements DTO {
 	
 	private Long id;
 	@NotEmpty(message = "Nome vazio")

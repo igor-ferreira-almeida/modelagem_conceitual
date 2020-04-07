@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.sparsis.modelagem_conceitual.domain.Categoria;
 import com.sparsis.modelagem_conceitual.domain.Cliente;
-import com.sparsis.modelagem_conceitual.dto.CategoriaDTO;
 import com.sparsis.modelagem_conceitual.dto.ClienteDTO;
 import com.sparsis.modelagem_conceitual.service.ClienteService;
 

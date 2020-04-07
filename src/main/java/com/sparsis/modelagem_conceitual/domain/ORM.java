@@ -24,4 +24,6 @@ public abstract class ORM<T> {
 	public void setId(T id) {
 		this.id = id;
 	}
+	
+	public abstract ORM<T> prepareUpdate(ORM<T> orm);
 }

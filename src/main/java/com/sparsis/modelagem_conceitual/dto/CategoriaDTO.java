@@ -12,7 +12,7 @@ import org.springframework.data.domain.Page;
 
 import com.sparsis.modelagem_conceitual.domain.Categoria;
 
-public class CategoriaDTO implements Serializable {
+public class CategoriaDTO implements DTO, Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;

@@ -38,8 +38,8 @@ public class Service<T extends ORM<Long>, REPOSITORY extends JpaRepository<T, Lo
 	}
 	
 	public T update(Long id, T t) {
-		findById(id);
-		t.setId(id);
+		T entity = findById(id);
+		entity.prepareUpdate(t);
 		return repository.saveAndFlush(t);
 	}
 	

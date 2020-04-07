@@ -160,4 +160,14 @@ public class Cliente extends ORM<Long> implements Serializable {
 	public void addAllPedidos(Pedido...pedidos) {
 		this.pedidos.addAll(Arrays.asList(pedidos));
 	}
+
+	@Override
+	public Cliente prepareUpdate(ORM<Long> orm) {
+		Cliente cliente = (Cliente) orm;
+		
+		this.nome = cliente.getNome();
+		this.email = cliente.getEmail();
+		
+		return this;
+	}
 }
